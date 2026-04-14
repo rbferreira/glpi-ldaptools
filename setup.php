@@ -30,7 +30,7 @@
  * -------------------------------------------------------------------------
  */
 
-define('PLUGIN_LDAPTOOLS_VERSION', '1.0.0');
+define('PLUGIN_LDAPTOOLS_VERSION', '1.1.0');
 
 // Minimal GLPI version, inclusive
 define('PLUGIN_LDAPTOOLS_MIN_GLPI', '11.0.0');

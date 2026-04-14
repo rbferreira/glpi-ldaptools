@@ -25,8 +25,8 @@
             <small class="text-muted">{{ __('Higher values = slower test', 'ldaptools') }}</small>
         </div>
         <div>
-            <button class="btn btn-sm btn-outline-secondary" id="ldaptools-rerun" title="{{ __('Re-run all tests', 'ldaptools') }}">
-                <i class="fas fa-redo mr-1"></i> {{ __('Re-run Tests', 'ldaptools') }}
+            <button class="btn btn-sm btn-primary" id="ldaptools-run" title="{{ __('Run all diagnostic tests', 'ldaptools') }}">
+                <i class="fas fa-play mr-1"></i> {{ __('Run Tests', 'ldaptools') }}
             </button>
         </div>
     </div>
@@ -74,11 +74,17 @@
         <tbody id="ldaptools-results">
             {% for ldap_items in ldap_servers %}
                 <tr id="ldap_test_{{ ldap_items.master.id }}_0">
-                    <td colspan="10" class="center"><i class="fas fa-spinner fa-pulse"></i> {{ __('Testing...', 'ldaptools') }}</td>
+                    <td colspan="10" class="center text-muted">
+                        <i class="fas fa-play-circle mr-1"></i>
+                        {{ __('Click "Run Tests" to start diagnostics', 'ldaptools') }}
+                    </td>
                 </tr>
                 {% for ldap_replicat in ldap_items.replicat %}
                     <tr id="ldap_test_{{ ldap_items.master.id }}_{{ ldap_replicat.id }}">
-                        <td colspan="10" class="center"><i class="fas fa-spinner fa-pulse"></i> {{ __('Testing...', 'ldaptools') }}</td>
+                        <td colspan="10" class="center text-muted">
+                            <i class="fas fa-play-circle mr-1"></i>
+                            {{ __('Click "Run Tests" to start diagnostics', 'ldaptools') }}
+                        </td>
                     </tr>
                 {% endfor %}
             {% endfor %}
@@ -144,7 +150,6 @@
     }
 
     $(document).ready(() => {
-        runAllTests();
-        $('#ldaptools-rerun').on('click', runAllTests);
+        $('#ldaptools-run').on('click', runAllTests);
     });
 </script>

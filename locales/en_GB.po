@@ -1,0 +1,256 @@
+# English translations for ldaptools plugin.
+# Copyright (C) 2022 Teclib'. 2026 Rafael Ferreira.
+# This file is distributed under the same license as the ldaptools package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ldaptools 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-14 00:00+0000\n"
+"PO-Revision-Date: 2026-04-14 00:00+0000\n"
+"Last-Translator: Rafael Ferreira\n"
+"Language-Team: English\n"
+"Language: en_GB\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "LDAP Tools"
+msgstr "LDAP Tools"
+
+msgid "LDAP Test"
+msgstr "LDAP Test"
+
+msgid "Test Logs"
+msgstr "Test Logs"
+
+msgid "LDAP Test Log"
+msgid_plural "LDAP Test Logs"
+msgstr[0] "LDAP Test Log"
+msgstr[1] "LDAP Test Logs"
+
+msgid "Performs diagnostic tests on all LDAP directories declared in GLPI, with detailed timing, DNS resolution, TLS certificate info, and structured logging."
+msgstr "Performs diagnostic tests on all LDAP directories declared in GLPI, with detailed timing, DNS resolution, TLS certificate info, and structured logging."
+
+msgid "View historical LDAP test results with detailed diagnostics and timing information."
+msgstr "View historical LDAP test results with detailed diagnostics and timing information."
+
+msgid "DNS"
+msgstr "DNS"
+
+msgid "TCP"
+msgstr "TCP"
+
+msgid "BaseDN"
+msgstr "BaseDN"
+
+msgid "URI / TLS"
+msgstr "URI / TLS"
+
+msgid "Bind"
+msgstr "Bind"
+
+msgid "Search (cn=*)"
+msgstr "Search (cn=*)"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Attrs"
+msgstr "Attrs"
+
+msgid "Total"
+msgstr "Total"
+
+msgid "LDAP Server"
+msgstr "LDAP Server"
+
+msgid "Re-run Tests"
+msgstr "Re-run Tests"
+
+msgid "Re-run all tests"
+msgstr "Re-run all tests"
+
+msgid "Testing..."
+msgstr "Testing..."
+
+msgid "Forced limit: 50 entries max."
+msgstr "Forced limit: 50 entries max."
+
+msgid "No LDAP directories configured in GLPI. Go to Setup > Authentication > LDAP directories to add one."
+msgstr "No LDAP directories configured in GLPI. Go to Setup > Authentication > LDAP directories to add one."
+
+msgid "Direct IP address, DNS resolution not needed."
+msgstr "Direct IP address, DNS resolution not needed."
+
+msgid "DNS Resolution"
+msgstr "DNS Resolution"
+
+msgid "Addresses:"
+msgstr "Addresses:"
+
+msgid "Time:"
+msgstr "Time:"
+
+msgid "Could not resolve hostname. Check DNS configuration or use an IP address."
+msgstr "Could not resolve hostname. Check DNS configuration or use an IP address."
+
+msgid "TCP Connection"
+msgstr "TCP Connection"
+
+msgid "TCP Connection Failed"
+msgstr "TCP Connection Failed"
+
+msgid "Host:"
+msgstr "Host:"
+
+msgid "Error:"
+msgstr "Error:"
+
+msgid "BaseDN should not be empty!"
+msgstr "BaseDN should not be empty!"
+
+msgid "LDAP Connection + StartTLS"
+msgstr "LDAP Connection + StartTLS"
+
+msgid "Connect time:"
+msgstr "Connect time:"
+
+msgid "TLS handshake:"
+msgstr "TLS handshake:"
+
+msgid "StartTLS Warning"
+msgstr "StartTLS Warning"
+
+msgid "Connection succeeded but StartTLS failed."
+msgstr "Connection succeeded but StartTLS failed."
+
+msgid "LDAP Connection"
+msgstr "LDAP Connection"
+
+msgid "TLS:"
+msgstr "TLS:"
+
+msgid "Not configured"
+msgstr "Not configured"
+
+msgid "Connection failed"
+msgstr "Connection failed"
+
+msgid "Fix previous!"
+msgstr "Fix previous!"
+
+msgid "Bind Failed"
+msgstr "Bind Failed"
+
+msgid "RootDN:"
+msgstr "RootDN:"
+
+msgid "Could not bind"
+msgstr "Could not bind"
+
+msgid "Bind Successful"
+msgstr "Bind Successful"
+
+msgid "Server Info"
+msgstr "Server Info"
+
+msgid "Disabled"
+msgstr "Disabled"
+
+msgid "Bind user/password authentication is disabled. Your LDAP server allows anonymous requests or authenticates with a key. If intentional, this is fine. If subsequent tests fail, review this setting."
+msgstr "Bind user/password authentication is disabled. Your LDAP server allows anonymous requests or authenticates with a key. If intentional, this is fine. If subsequent tests fail, review this setting."
+
+#, php-format
+msgid "Error number: %s"
+msgstr "Error number: %s"
+
+#, php-format
+msgid "Error message: %s"
+msgstr "Error message: %s"
+
+msgid "Generic Search"
+msgstr "Generic Search"
+
+msgid "Filter:"
+msgstr "Filter:"
+
+msgid "Results:"
+msgstr "Results:"
+
+msgid "First entry"
+msgstr "First entry"
+
+msgid "entries"
+msgstr "entries"
+
+#, php-format
+msgid "%s entries"
+msgstr "%s entries"
+
+#, php-format
+msgid "Search error: %s"
+msgstr "Search error: %s"
+
+#, php-format
+msgid "No entry found: %s"
+msgstr "No entry found: %s"
+
+msgid "Filtered Search"
+msgstr "Filtered Search"
+
+#, php-format
+msgid "Filter error: %s"
+msgstr "Filter error: %s"
+
+msgid "Available attributes"
+msgstr "Available attributes"
+
+msgid "Get attributes error"
+msgstr "Get attributes error"
+
+msgid "Server:"
+msgstr "Server:"
+
+msgid "All servers"
+msgstr "All servers"
+
+msgid "Showing last 200 entries"
+msgstr "Showing last 200 entries"
+
+msgid "No test logs found. Run an LDAP test to generate log entries."
+msgstr "No test logs found. Run an LDAP test to generate log entries."
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Server"
+msgstr "Server"
+
+msgid "Host"
+msgstr "Host"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Connect"
+msgstr "Connect"
+
+msgid "Search"
+msgstr "Search"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Replica"
+msgstr "Replica"
+
+msgid "Master"
+msgstr "Master"
+
+msgid "Tool"
+msgstr "Tool"
+
+msgid "Description"
+msgstr "Description"

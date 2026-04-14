@@ -1,0 +1,117 @@
+{#
+ # -------------------------------------------------------------------------
+ # ldaptools plugin for GLPI
+ # -------------------------------------------------------------------------
+ #
+ # @author    Rafael Ferreira
+ # @license   GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
+ # -------------------------------------------------------------------------
+ #}
+
+<div class="center">
+    <div class="mb-3 d-flex justify-content-between align-items-center" style="max-width: 1400px; margin: 0 auto;">
+        <div>
+            <form method="get" class="d-inline-flex align-items-center gap-2">
+                <label for="authldaps_id"><i class="fas fa-filter mr-1"></i> {{ __('Server:', 'ldaptools') }}</label>
+                <select name="authldaps_id" id="authldaps_id" class="form-select form-select-sm" style="width: auto;" onchange="this.form.submit()">
+                    <option value="0">{{ __('All servers', 'ldaptools') }}</option>
+                    {% for server in servers %}
+                        <option value="{{ server.id }}" {% if server.id == authldaps_id %}selected{% endif %}>
+                            {{ server.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </form>
+        </div>
+        <div>
+            <small class="text-muted">{{ __('Showing last 200 entries', 'ldaptools') }}</small>
+        </div>
+    </div>
+
+    {% if logs|length == 0 %}
+        <div class="alert alert-info d-inline-block">
+            <i class="fas fa-info-circle mr-1"></i>
+            {{ __('No test logs found. Run an LDAP test to generate log entries.', 'ldaptools') }}
+        </div>
+    {% else %}
+        <table class="tab_cadrehov" style="font-size: 0.9em;">
+            <thead>
+                <tr class="tab_bg_2">
+                    <th>{{ __('Date', 'ldaptools') }}</th>
+                    <th>{{ __('Server', 'ldaptools') }}</th>
+                    <th>{{ __('Host', 'ldaptools') }}</th>
+                    <th>{{ __('Type', 'ldaptools') }}</th>
+                    <th>{{ __('DNS', 'ldaptools') }}</th>
+                    <th>{{ __('TCP', 'ldaptools') }}</th>
+                    <th>{{ __('BaseDN', 'ldaptools') }}</th>
+                    <th>{{ __('Connect', 'ldaptools') }}</th>
+                    <th>{{ __('Bind', 'ldaptools') }}</th>
+                    <th>{{ __('Search', 'ldaptools') }}</th>
+                    <th>{{ __('Filter', 'ldaptools') }}</th>
+                    <th>{{ __('Attrs', 'ldaptools') }}</th>
+                    <th>{{ __('Entries', 'ldaptools') }}</th>
+                    <th>{{ __('Total', 'ldaptools') }}</th>
+                    <th>{{ __('Status', 'ldaptools') }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                    <tr class="tab_bg_1">
+                        <td class="nowrap">
+                            <small>{{ log.date_test }}</small>
+                        </td>
+                        <td>{{ log.server_name }}</td>
+                        <td><small>{{ log.hostname }}:{{ log.port }}</small></td>
+                        <td>
+                            {% if log.is_replica %}
+                                <i class="ti ti-copy" title="{{ __('Replica', 'ldaptools') }}"></i>
+                            {% else %}
+                                <i class="ti ti-crown" title="{{ __('Master', 'ldaptools') }}"></i>
+                            {% endif %}
+                        </td>
+                        {% for test in ['test_dns', 'test_tcp', 'test_basedn', 'test_connect', 'test_bind', 'test_search', 'test_filter', 'test_attributes'] %}
+                            <td class="center">
+                                {% set val = attribute(log, test) %}
+                                {% if val == 'ok' %}
+                                    <i class="fas fa-check-circle" style="color: #22c55e;"></i>
+                                {% elseif val == 'error' %}
+                                    <i class="fas fa-times-circle" style="color: #ef4444;"></i>
+                                {% elseif val == 'warn' %}
+                                    <i class="fas fa-exclamation-triangle" style="color: #f59e0b;"></i>
+                                {% else %}
+                                    <i class="fas fa-minus-circle" style="color: #94a3b8;"></i>
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+                        <td class="center nowrap">
+                            {% if log.search_count is not null %}
+                                <small title="{{ __('Search:', 'ldaptools') }} {{ log.search_count }} / {{ __('Filter:', 'ldaptools') }} {{ log.filter_count ?? '-' }}">
+                                    <b>{{ log.search_count }}</b>
+                                    {% if log.filter_count is not null and log.filter_count != log.search_count %}
+                                        / {{ log.filter_count }}
+                                    {% endif %}
+                                </small>
+                            {% else %}
+                                <small>-</small>
+                            {% endif %}
+                        </td>
+                        <td class="center nowrap">
+                            <small>{{ log.total_time_ms|round(1) }}ms</small>
+                        </td>
+                        <td class="center">
+                            {% if log.overall_status == 'ok' %}
+                                <span class="badge bg-success">OK</span>
+                            {% elseif log.overall_status == 'warn' %}
+                                <span class="badge bg-warning">WARN</span>
+                            {% else %}
+                                <span class="badge bg-danger" {% if log.error_details %}title="{{ log.error_details }}"{% endif %}>
+                                    ERROR
+                                </span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</div>

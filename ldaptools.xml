@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+   <name>LDAP Tools</name>
+   <key>ldaptools</key>
+   <state>stable</state>
+   <logo/>
+   <description>
+      <short>
+         <en>Enhanced LDAP diagnostic and testing tools for GLPI 11</en>
+         <fr>Outils de diagnostic et test LDAP améliorés pour GLPI 11</fr>
+         <pt>Ferramentas de diagnóstico e teste LDAP aprimoradas para GLPI 11</pt>
+      </short>
+      <long>
+         <en>Provides comprehensive LDAP server diagnostics including DNS resolution, TCP connectivity, TLS/StartTLS validation, bind authentication, search operations, attribute discovery — all with detailed timing metrics and persistent test logging.</en>
+         <fr>Fournit des diagnostics complets des serveurs LDAP incluant la résolution DNS, la connectivité TCP, la validation TLS/StartTLS, l'authentification bind, les opérations de recherche, la découverte d'attributs — le tout avec des métriques de temps détaillées et un historique des tests.</fr>
+         <pt>Fornece diagnósticos completos de servidores LDAP incluindo resolução DNS, conectividade TCP, validação TLS/StartTLS, autenticação bind, operações de busca, descoberta de atributos — tudo com métricas de tempo detalhadas e log persistente de testes.</pt>
+      </long>
+   </description>
+   <homepage>https://github.com/pluginsglpi/ldaptools</homepage>
+   <download>https://github.com/pluginsglpi/ldaptools/releases</download>
+   <issues>https://github.com/pluginsglpi/ldaptools/issues</issues>
+   <readme>https://github.com/pluginsglpi/ldaptools/blob/master/README.md</readme>
+   <authors>
+      <author>teclib'</author>
+      <author>Rafael Ferreira</author>
+   </authors>
+   <versions>
+      <version>
+         <num>1.0.0</num>
+         <compatibility>~11.0.0</compatibility>
+         <download_url>https://github.com/pluginsglpi/ldaptools/releases/tag/1.0.0</download_url>
+      </version>
+   </versions>
+   <langs>
+      <lang>en_GB</lang>
+      <lang>pt_BR</lang>
+   </langs>
+   <license>GPLv3</license>
+   <tags>
+      <en>
+         <tag>LDAP</tag>
+         <tag>Authentication</tag>
+         <tag>Diagnostics</tag>
+         <tag>Active Directory</tag>
+      </en>
+   </tags>
+</root>

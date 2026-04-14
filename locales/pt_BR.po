@@ -1,0 +1,256 @@
+# Traduções para português brasileiro do plugin ldaptools.
+# Copyright (C) 2026 Rafael Ferreira.
+# Distribuído sob a mesma licença do pacote ldaptools.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ldaptools 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-14 00:00+0000\n"
+"PO-Revision-Date: 2026-04-14 00:00+0000\n"
+"Last-Translator: Rafael Ferreira\n"
+"Language-Team: Portuguese (Brazil)\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "LDAP Tools"
+msgstr "Ferramentas LDAP"
+
+msgid "LDAP Test"
+msgstr "Teste LDAP"
+
+msgid "Test Logs"
+msgstr "Logs de Teste"
+
+msgid "LDAP Test Log"
+msgid_plural "LDAP Test Logs"
+msgstr[0] "Log de Teste LDAP"
+msgstr[1] "Logs de Teste LDAP"
+
+msgid "Performs diagnostic tests on all LDAP directories declared in GLPI, with detailed timing, DNS resolution, TLS certificate info, and structured logging."
+msgstr "Executa testes diagnósticos em todos os diretórios LDAP configurados no GLPI, com medição de tempo, resolução DNS, informações de certificado TLS e log estruturado."
+
+msgid "View historical LDAP test results with detailed diagnostics and timing information."
+msgstr "Visualizar histórico de resultados de testes LDAP com diagnósticos detalhados e informações de tempo."
+
+msgid "DNS"
+msgstr "DNS"
+
+msgid "TCP"
+msgstr "TCP"
+
+msgid "BaseDN"
+msgstr "BaseDN"
+
+msgid "URI / TLS"
+msgstr "URI / TLS"
+
+msgid "Bind"
+msgstr "Bind"
+
+msgid "Search (cn=*)"
+msgstr "Busca (cn=*)"
+
+msgid "Filter"
+msgstr "Filtro"
+
+msgid "Attrs"
+msgstr "Atributos"
+
+msgid "Total"
+msgstr "Total"
+
+msgid "LDAP Server"
+msgstr "Servidor LDAP"
+
+msgid "Re-run Tests"
+msgstr "Executar Novamente"
+
+msgid "Re-run all tests"
+msgstr "Executar todos os testes novamente"
+
+msgid "Testing..."
+msgstr "Testando..."
+
+msgid "Forced limit: 50 entries max."
+msgstr "Limite forçado: máximo de 50 entradas."
+
+msgid "No LDAP directories configured in GLPI. Go to Setup > Authentication > LDAP directories to add one."
+msgstr "Nenhum diretório LDAP configurado no GLPI. Vá em Configurar > Autenticação > Diretórios LDAP para adicionar."
+
+msgid "Direct IP address, DNS resolution not needed."
+msgstr "Endereço IP direto, resolução DNS não necessária."
+
+msgid "DNS Resolution"
+msgstr "Resolução DNS"
+
+msgid "Addresses:"
+msgstr "Endereços:"
+
+msgid "Time:"
+msgstr "Tempo:"
+
+msgid "Could not resolve hostname. Check DNS configuration or use an IP address."
+msgstr "Não foi possível resolver o hostname. Verifique a configuração DNS ou use um endereço IP."
+
+msgid "TCP Connection"
+msgstr "Conexão TCP"
+
+msgid "TCP Connection Failed"
+msgstr "Falha na Conexão TCP"
+
+msgid "Host:"
+msgstr "Host:"
+
+msgid "Error:"
+msgstr "Erro:"
+
+msgid "BaseDN should not be empty!"
+msgstr "O BaseDN não pode estar vazio!"
+
+msgid "LDAP Connection + StartTLS"
+msgstr "Conexão LDAP + StartTLS"
+
+msgid "Connect time:"
+msgstr "Tempo de conexão:"
+
+msgid "TLS handshake:"
+msgstr "Handshake TLS:"
+
+msgid "StartTLS Warning"
+msgstr "Aviso StartTLS"
+
+msgid "Connection succeeded but StartTLS failed."
+msgstr "Conexão bem-sucedida, mas StartTLS falhou."
+
+msgid "LDAP Connection"
+msgstr "Conexão LDAP"
+
+msgid "TLS:"
+msgstr "TLS:"
+
+msgid "Not configured"
+msgstr "Não configurado"
+
+msgid "Connection failed"
+msgstr "Falha na conexão"
+
+msgid "Fix previous!"
+msgstr "Corrija o anterior!"
+
+msgid "Bind Failed"
+msgstr "Falha no Bind"
+
+msgid "RootDN:"
+msgstr "RootDN:"
+
+msgid "Could not bind"
+msgstr "Não foi possível realizar o bind"
+
+msgid "Bind Successful"
+msgstr "Bind bem-sucedido"
+
+msgid "Server Info"
+msgstr "Informações do Servidor"
+
+msgid "Disabled"
+msgstr "Desabilitado"
+
+msgid "Bind user/password authentication is disabled. Your LDAP server allows anonymous requests or authenticates with a key. If intentional, this is fine. If subsequent tests fail, review this setting."
+msgstr "A autenticação por usuário/senha (bind) está desabilitada. Seu servidor LDAP aceita requisições anônimas ou autentica por chave. Se intencional, não se preocupe. Se os testes seguintes falharem, revise esta configuração."
+
+#, php-format
+msgid "Error number: %s"
+msgstr "Número do erro: %s"
+
+#, php-format
+msgid "Error message: %s"
+msgstr "Mensagem de erro: %s"
+
+msgid "Generic Search"
+msgstr "Busca Genérica"
+
+msgid "Filter:"
+msgstr "Filtro:"
+
+msgid "Results:"
+msgstr "Resultados:"
+
+msgid "First entry"
+msgstr "Primeira entrada"
+
+msgid "entries"
+msgstr "entradas"
+
+#, php-format
+msgid "%s entries"
+msgstr "%s entradas"
+
+#, php-format
+msgid "Search error: %s"
+msgstr "Erro na busca: %s"
+
+#, php-format
+msgid "No entry found: %s"
+msgstr "Nenhuma entrada encontrada: %s"
+
+msgid "Filtered Search"
+msgstr "Busca Filtrada"
+
+#, php-format
+msgid "Filter error: %s"
+msgstr "Erro no filtro: %s"
+
+msgid "Available attributes"
+msgstr "Atributos disponíveis"
+
+msgid "Get attributes error"
+msgstr "Erro ao obter atributos"
+
+msgid "Server:"
+msgstr "Servidor:"
+
+msgid "All servers"
+msgstr "Todos os servidores"
+
+msgid "Showing last 200 entries"
+msgstr "Exibindo as últimas 200 entradas"
+
+msgid "No test logs found. Run an LDAP test to generate log entries."
+msgstr "Nenhum log de teste encontrado. Execute um teste LDAP para gerar registros."
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Server"
+msgstr "Servidor"
+
+msgid "Host"
+msgstr "Host"
+
+msgid "Type"
+msgstr "Tipo"
+
+msgid "Connect"
+msgstr "Conexão"
+
+msgid "Search"
+msgstr "Busca"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Replica"
+msgstr "Réplica"
+
+msgid "Master"
+msgstr "Master"
+
+msgid "Tool"
+msgstr "Ferramenta"
+
+msgid "Description"
+msgstr "Descrição"

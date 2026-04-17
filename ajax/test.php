@@ -557,10 +557,14 @@ echo '</td>';
 echo '<td>';
 if ($next) {
     $attrs = false;
-    // Fetch a single entry with all attributes for discovery
-    $attr_result = @ldap_search($ldap, $base_dn, $filter ?: $search, [], 0, 1, 10);
-    if ($attr_result && ($first = ldap_first_entry($ldap, $attr_result))) {
-        $attrs = ldap_get_attributes($ldap, $first);
+    // Read all attributes from the first entry found in previous test (by DN, no search)
+    $first = ldap_first_entry($ldap, $results);
+    if ($first) {
+        $first_dn = ldap_get_dn($ldap, $first);
+        $attr_result = @ldap_read($ldap, $first_dn, '(objectClass=*)', []);
+        if ($attr_result && ($attr_entry = ldap_first_entry($ldap, $attr_result))) {
+            $attrs = ldap_get_attributes($ldap, $attr_entry);
+        }
     }
     if (!$attrs) {
         $errno_ldap = ldap_errno($ldap);

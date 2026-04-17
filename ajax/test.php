@@ -37,12 +37,13 @@ Session::checkRight('config', UPDATE);
 $authldaps_id          = intval($_GET['authldaps_id'] ?? 0);
 $authldapreplicates_id = intval($_GET['authldapreplicates_id'] ?? 0);
 $is_replicat           = $authldapreplicates_id !== 0;
-$search_limit          = intval($_GET['limit'] ?? 50);
+$search_limit          = intval($_GET['limit'] ?? 10);
 if ($search_limit <= 0) {
-    $search_limit = 0; // 0 = unlimited in ldap_search
+    $search_limit = 0; // 0 = unlimited
 }
-// Timeout scales with limit: small limit = fast, unlimited = generous
-$search_timelimit = $search_limit > 0 && $search_limit <= 50 ? 10 : 120;
+// Some LDAP servers (e.g. Google Workspace) ignore client-side sizelimit
+// and always return the full directory. Use a generous timeout to avoid 504s.
+$search_timelimit = 120;
 
 if (empty($authldaps_id)) {
     http_response_code(400);
@@ -445,21 +446,34 @@ if ($next) {
         echo status_span('error', $authldaps_id, '<i class="far fa-thumbs-down mr-2 m-2"></i>' . sprintf(__('Search error: %s', 'ldaptools'), htmlspecialchars($search)) . ' <small>(' . fmt_ms($search_ms) . ')</small>', $tooltip);
         $next = false;
     } else {
-        $count_entries = ldap_count_entries($ldap, $results);
+        $server_count = ldap_count_entries($ldap, $results);
+        $count_entries = $server_count;
+        $limit_ignored = ($search_limit > 0 && $server_count > $search_limit);
+        if ($limit_ignored) {
+            $count_entries = $search_limit; // client-side trim
+        }
         $log_data['test_search']    = ($count_entries > 0) ? 'ok' : 'error';
         $log_data['search_time_ms'] = round($search_ms, 2);
         $log_data['search_count']   = $count_entries;
 
         if ($count_entries > 0) {
+            $display_count = $limit_ignored
+                ? $count_entries . '/' . $server_count
+                : (string) $count_entries;
             $tooltip  = '<b>' . __('Generic Search', 'ldaptools') . '</b><br/>';
             $tooltip .= __('Filter:', 'ldaptools') . ' ' . htmlspecialchars($search) . '<br/>';
-            $tooltip .= __('Results:', 'ldaptools') . ' ' . $count_entries . '<br/>';
+            $tooltip .= __('Server returned:', 'ldaptools') . ' ' . $server_count . '<br/>';
+            if ($limit_ignored) {
+                $tooltip .= '<i class="fas fa-info-circle"></i> ' . __('Server ignored sizelimit — showing client-side trim', 'ldaptools') . '<br/>';
+            }
+            $tooltip .= __('Displaying:', 'ldaptools') . ' ' . $count_entries . '<br/>';
             $tooltip .= __('Time:', 'ldaptools') . ' ' . fmt_ms($search_ms) . '<br/>';
             $firstEntry = ldap_first_entry($ldap, $results);
             if ($firstEntry) {
                 $tooltip .= '<br/><b>' . __('First entry', 'ldaptools') . '</b><br/>' . htmlspecialchars(ldap_get_dn($ldap, $firstEntry));
             }
-            echo status_span('ok', $authldaps_id, '<i class="far fa-thumbs-up mr-2 m-2"></i>' . $count_entries . ' ' . __('entries', 'ldaptools') . ' <small>(' . fmt_ms($search_ms) . ')</small>', $tooltip);
+            $status = $limit_ignored ? 'warn' : 'ok';
+            echo status_span($status, $authldaps_id, '<i class="far fa-thumbs-up mr-2 m-2"></i>' . $display_count . ' ' . __('entries', 'ldaptools') . ' <small>(' . fmt_ms($search_ms) . ')</small>', $tooltip);
             $next = true;
         } else {
             echo status_span('error', $authldaps_id, '<i class="far fa-thumbs-down mr-2 m-2"></i>' . sprintf(__('No entry found: %s', 'ldaptools'), htmlspecialchars($search)));
@@ -497,20 +511,33 @@ if ($next) {
         echo status_span('error', $authldaps_id, '<i class="far fa-thumbs-down mr-2 m-2"></i>' . sprintf(__('Filter error: %s', 'ldaptools'), htmlspecialchars($filter)) . ' <small>(' . fmt_ms($filter_ms) . ')</small>', $tooltip);
         $next = false;
     } else {
-        $filter_count = ldap_count_entries($ldap, $results);
+        $server_filter_count = ldap_count_entries($ldap, $results);
+        $filter_count = $server_filter_count;
+        $filter_limit_ignored = ($search_limit > 0 && $server_filter_count > $search_limit);
+        if ($filter_limit_ignored) {
+            $filter_count = $search_limit;
+        }
         $log_data['test_filter']    = ($filter_count > 0) ? 'ok' : 'error';
         $log_data['filter_time_ms'] = round($filter_ms, 2);
         $log_data['filter_count']   = $filter_count;
 
         if ($filter_count > 0) {
+            $display_filter = $filter_limit_ignored
+                ? $filter_count . '/' . $server_filter_count
+                : (string) $filter_count;
             $tooltip  = '<b>' . __('Filtered Search', 'ldaptools') . '</b><br/>';
             $tooltip .= __('Filter:', 'ldaptools') . ' ' . htmlspecialchars($filter) . '<br/>';
-            $tooltip .= __('Results:', 'ldaptools') . ' ' . $filter_count . '<br/>';
+            $tooltip .= __('Server returned:', 'ldaptools') . ' ' . $server_filter_count . '<br/>';
+            if ($filter_limit_ignored) {
+                $tooltip .= '<i class="fas fa-info-circle"></i> ' . __('Server ignored sizelimit — showing client-side trim', 'ldaptools') . '<br/>';
+            }
+            $tooltip .= __('Displaying:', 'ldaptools') . ' ' . $filter_count . '<br/>';
             $tooltip .= __('Time:', 'ldaptools') . ' ' . fmt_ms($filter_ms);
             if ($firstEntry = ldap_first_entry($ldap, $results)) {
                 $tooltip .= '<br/><br/><b>' . __('First entry', 'ldaptools') . '</b><br/>' . htmlspecialchars(ldap_get_dn($ldap, $firstEntry));
             }
-            echo status_span('ok', $authldaps_id, '<i class="far fa-thumbs-up mr-2 m-2"></i>' . sprintf(__('%s entries', 'ldaptools'), $filter_count) . ' <small>(' . fmt_ms($filter_ms) . ')</small>', $tooltip);
+            $status = $filter_limit_ignored ? 'warn' : 'ok';
+            echo status_span($status, $authldaps_id, '<i class="far fa-thumbs-up mr-2 m-2"></i>' . sprintf(__('%s entries', 'ldaptools'), $display_filter) . ' <small>(' . fmt_ms($filter_ms) . ')</small>', $tooltip);
             $next = true;
         } else {
             echo status_span('error', $authldaps_id, '<i class="far fa-thumbs-down mr-2 m-2"></i>' . sprintf(__('No entry found: %s', 'ldaptools'), htmlspecialchars($filter)));

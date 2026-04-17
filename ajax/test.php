@@ -432,7 +432,7 @@ echo '</td>';
 echo '<td>';
 if ($next) {
     $search_start = microtime(true);
-    $results = @ldap_search($ldap, $base_dn, $search, [], 0, $search_limit, $search_timelimit);
+    $results = @ldap_search($ldap, $base_dn, $search, ['cn'], 0, $search_limit, $search_timelimit);
     $search_ms = (microtime(true) - $search_start) * 1000;
 
     if (!$results) {
@@ -497,7 +497,7 @@ if ($next) {
     }
 
     $filter_start = microtime(true);
-    $results = @ldap_search($ldap, $base_dn, $filter, [], 0, $search_limit, $search_timelimit);
+    $results = @ldap_search($ldap, $base_dn, $filter, ['cn'], 0, $search_limit, $search_timelimit);
     $filter_ms = (microtime(true) - $filter_start) * 1000;
 
     if (!$results) {
@@ -557,7 +557,9 @@ echo '</td>';
 echo '<td>';
 if ($next) {
     $attrs = false;
-    if ($first = ldap_first_entry($ldap, $results)) {
+    // Fetch a single entry with all attributes for discovery
+    $attr_result = @ldap_search($ldap, $base_dn, $filter ?: $search, [], 0, 1, 10);
+    if ($attr_result && ($first = ldap_first_entry($ldap, $attr_result))) {
         $attrs = ldap_get_attributes($ldap, $first);
     }
     if (!$attrs) {

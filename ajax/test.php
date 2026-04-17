@@ -28,12 +28,11 @@
  * -------------------------------------------------------------------------
  */
 
-$AJAX_INCLUDE = 1;
-include('../../../inc/includes.php');
 header('Content-Type: text/html; charset=UTF-8');
 Html::header_nocache();
 
 Session::checkRight('config', UPDATE);
+
 
 $authldaps_id          = intval($_GET['authldaps_id'] ?? 0);
 $authldapreplicates_id = intval($_GET['authldapreplicates_id'] ?? 0);
@@ -47,7 +46,7 @@ $search_timelimit = $search_limit > 0 && $search_limit <= 50 ? 10 : 120;
 
 if (empty($authldaps_id)) {
     http_response_code(400);
-    Toolbox::logWarning("[ldaptools] Missing parameter 'authldaps_id'.");
+    Toolbox::logInfo("[ldaptools] Missing parameter 'authldaps_id'.");
     die;
 }
 
@@ -56,7 +55,7 @@ $authreplicat_ldap = new AuthLdapReplicate();
 
 if (!$AuthLDAP->can($authldaps_id, READ)) {
     http_response_code(403);
-    Toolbox::logWarning('[ldaptools] Missing rights to read AuthLDAP data.');
+    Toolbox::logInfo('[ldaptools] Missing rights to read AuthLDAP data.');
     die;
 }
 
@@ -283,7 +282,10 @@ echo '</td>';
 echo '<td>';
 if ($next) {
     $conn_start = microtime(true);
-    $ldap = @ldap_connect($hostname, $port_num);
+    $ldap_uri = (str_starts_with($hostname, 'ldap://') || str_starts_with($hostname, 'ldaps://'))
+        ? $hostname
+        : "ldap://{$hostname}:{$port_num}";
+    $ldap = @ldap_connect($ldap_uri);
     $conn_ms = (microtime(true) - $conn_start) * 1000;
 
     if ($ldap) {
@@ -618,7 +620,7 @@ $log_msg = sprintf(
     fmt_ms($total_ms),
 );
 if ($log_data['overall_status'] === 'error') {
-    Toolbox::logWarning($log_msg . ' errors=' . ($log_data['error_details'] ?? ''));
+    Toolbox::logInfo($log_msg . ' errors=' . ($log_data['error_details'] ?? ''));
 } else {
     Toolbox::logDebug($log_msg);
 }
